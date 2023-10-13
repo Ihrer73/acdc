@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/flatland_msgs/share/roseus/ros/flatland_msgs/srv/DeleteModel.l

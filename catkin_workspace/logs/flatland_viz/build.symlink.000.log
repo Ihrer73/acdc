@@ -1,0 +1,5 @@
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/flatland_viz/cmake/flatland_vizConfig-version.cmake
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/flatland_viz/cmake/flatland_vizConfig.cmake
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/libflatland_viz_plugins.so
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/flatland_viz/flatland_viz
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/pkgconfig/flatland_viz.pc

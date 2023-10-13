@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/object_fusion_wrapper/lib/pkgconfig/object_fusion_wrapper.pc

@@ -1,0 +1,6 @@
+[ 10%] Built target trajectory_planner_gencfg
+[ 40%] Built target trajectory_planner_original_stabilized
+[ 50%] [32mBuilding CXX object CMakeFiles/trajectory_planner_original.dir/src/trajectory_planner_original.cpp.o[0m
+[ 80%] Built target trajectory_planner
+[ 90%] [32m[1mLinking CXX executable /home/rosuser/ws/catkin_workspace/devel/.private/trajectory_planner/lib/trajectory_planner/trajectory_planner_original[0m
+[100%] Built target trajectory_planner_original

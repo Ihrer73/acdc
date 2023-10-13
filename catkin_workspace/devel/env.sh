@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/catkin_tools_prebuild/env.sh

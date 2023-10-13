@@ -20,6 +20,7 @@
 
 #include <string>
 #include <ros/ros.h>
+#include "std_msgs/Bool.h"
 
 #include <definitions/v2x_SPAT.h>
 #include <definitions/v2x_SPAT_IntersectionState.h>
@@ -27,21 +28,26 @@
 #include <definitions/v2x_SPAT_MovementEvent.h>
 #include <definitions/ASN_bitstring.h>
 
+namespace spat_node {
+
 class spat_generator{
 protected:
 
   ros::Publisher pub_spat_;
-
-  ros::WallDuration time_to_green_;
-  ros::WallDuration time_to_red_;
+  ros::Subscriber sub; 
 
   int epoch_01_2022_ = 1640995200;
+  bool NodeStatus = false;
 
   // Params
+  bool sg_1_red;
+  bool sg_2_red;
   double frequency;
   std::string topic_out;
-  double ttg;
-  double ttr;
+  double ttg_1;
+  double ttr_1;
+  double ttg_2;
+  double ttr_2;
 
   // Custom SPATEM
   std::string spat_name;
@@ -52,17 +58,26 @@ protected:
   int nSignalGroups;
   
   // Important variables
-  ros::WallTime start_time_;
-  ros::WallTime time_to_change_;
-  int current_states[2];
+  ros::WallTime start_time_1;
+  ros::WallTime start_time_2;
+  ros::WallTime time_to_change_1;
+  ros::WallTime time_to_change_2;
+  ros::WallDuration time_to_green_1;
+  ros::WallDuration time_to_red_1;
+  ros::WallDuration time_to_green_2;
+  ros::WallDuration time_to_red_2;
+  int current_states[3];
 
 public:
   spat_generator();
 
   ~spat_generator();
 
-  int init(int argc, char **argv);
-
   definitions::v2x_SPAT fillSpat();
 
+  void NodeStatusCallback(const std_msgs::Bool::ConstPtr& msg);
+
+  int init(int argc, char **argv);
 };
+
+}

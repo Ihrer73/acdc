@@ -1,0 +1,8 @@
+prefix=/home/rosuser/ws/catkin_workspace/install
+
+Name: trajectory_ctrl
+Description: Description of trajectory_ctrl
+Version: 0.0.1
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: definitions roscpp std_msgs dynamic_reconfigure

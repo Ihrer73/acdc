@@ -1,0 +1,4 @@
+[01m[K/home/rosuser/ws/catkin_workspace/src/dependencies/flatland_plugins_ika/src/drives/SimulatedDrive.cpp:[m[K In member function ‘[01m[Kdouble flatland_ika_plugins::SimulatedDrive::CalculateSteeringAngleFromTargetYawRate()[m[K’:
+[01m[K/home/rosuser/ws/catkin_workspace/src/dependencies/flatland_plugins_ika/src/drives/SimulatedDrive.cpp:308:1:[m[K [01;35m[Kwarning: [m[Kno return statement in function returning non-void [[01;35m[K-Wreturn-type[m[K]
+  308 | [01;35m[K}[m[K
+      | [01;35m[K^[m[K

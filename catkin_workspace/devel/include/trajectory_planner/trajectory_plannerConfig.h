@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/trajectory_planner/include/trajectory_planner/trajectory_plannerConfig.h

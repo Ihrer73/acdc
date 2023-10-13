@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/object_fusion_wrapper/share/object_fusion_wrapper/cmake/object_fusion_wrapperConfig.cmake

@@ -1,0 +1,42 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/rosuser/ws/catkin_workspace/devel/include/ct/rbd/robot/kinematics/ikfast/ikfast.h
+vector
+-
+list
+-
+stdexcept
+-
+cmath
+-
+
+/home/rosuser/ws/catkin_workspace/src/dependencies/control-toolbox/ct_models/src/Irb4600/transform6d.cpp
+ikfast.h
+/home/rosuser/ws/catkin_workspace/src/dependencies/control-toolbox/ct_models/src/Irb4600/ikfast.h
+cmath
+-
+vector
+-
+limits
+-
+algorithm
+-
+complex
+-
+stdexcept
+-
+sstream
+-
+iostream
+-
+stdio.h
+-
+stdlib.h
+-
+

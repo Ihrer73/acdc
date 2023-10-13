@@ -1,0 +1,8 @@
+prefix=/home/rosuser/ws/catkin_workspace/devel/.private/v2x_map_generator
+
+Name: v2x_map_generator
+Description: Description of v2x_map_generator
+Version: 0.1.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp rospy definitions xmlrpcpp geometry_msgs

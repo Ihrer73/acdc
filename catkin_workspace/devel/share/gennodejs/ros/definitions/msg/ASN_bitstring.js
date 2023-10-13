@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/definitions/share/gennodejs/ros/definitions/msg/ASN_bitstring.js

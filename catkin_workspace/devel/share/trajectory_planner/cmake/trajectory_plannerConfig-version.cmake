@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/trajectory_planner/share/trajectory_planner/cmake/trajectory_plannerConfig-version.cmake

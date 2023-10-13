@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/v2x_spat_generator/share/v2x_spat_generator/cmake/v2x_spat_generatorConfig.cmake

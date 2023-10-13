@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/trajectory_ctrl/share/trajectory_ctrl/cmake/trajectory_ctrlConfig-version.cmake

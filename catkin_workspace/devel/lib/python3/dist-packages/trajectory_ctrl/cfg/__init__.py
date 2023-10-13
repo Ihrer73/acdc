@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/trajectory_ctrl/lib/python3/dist-packages/trajectory_ctrl/cfg/__init__.py

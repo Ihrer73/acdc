@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/trajectory_planner/lib/python3/dist-packages/trajectory_planner/cfg/__init__.py

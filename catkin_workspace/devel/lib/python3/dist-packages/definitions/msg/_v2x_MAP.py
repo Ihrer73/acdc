@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/definitions/lib/python3/dist-packages/definitions/msg/_v2x_MAP.py

@@ -1,0 +1,8 @@
+prefix=/home/rosuser/ws/catkin_workspace/install
+
+Name: mqtt_launchpack
+Description: Description of mqtt_launchpack
+Version: 0.1.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp std_msgs

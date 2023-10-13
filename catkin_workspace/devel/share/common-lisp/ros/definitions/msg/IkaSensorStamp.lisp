@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/definitions/share/common-lisp/ros/definitions/msg/IkaSensorStamp.lisp

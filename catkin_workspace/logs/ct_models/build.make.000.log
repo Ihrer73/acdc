@@ -1,0 +1,43 @@
+[35m[1mScanning dependencies of target HyALinearizedForward[0m
+[35m[1mScanning dependencies of target HyQLinearizationCodegen[0m
+[  4%] [32mBuilding CXX object CMakeFiles/HyALinearizedForward.dir/include/ct/models/HyA/codegen/HyALinearizedForward.cpp.o[0m
+[  9%] [32mBuilding CXX object CMakeFiles/HyQLinearizationCodegen.dir/src/HyQ/codegen/HyQLinearizationCodegen.cpp.o[0m
+[35m[1mScanning dependencies of target InvertedPendulumWithActuatorCodeGen[0m
+[ 14%] [32mBuilding CXX object CMakeFiles/InvertedPendulumWithActuatorCodeGen.dir/src/InvertedPendulum/codegen/InvertedPendulumWithActuatorCodeGen.cpp.o[0m
+[ 19%] [32m[1mLinking CXX static library libHyALinearizedForward.a[0m
+[ 19%] Built target HyALinearizedForward
+[35m[1mScanning dependencies of target HyAJacInverseDynamicsReverse[0m
+[ 23%] [32mBuilding CXX object CMakeFiles/HyAJacInverseDynamicsReverse.dir/include/ct/models/HyA/codegen/HyAInverseDynJacReverse.cpp.o[0m
+[ 28%] [32m[1mLinking CXX static library libHyAJacInverseDynamicsReverse.a[0m
+[ 28%] Built target HyAJacInverseDynamicsReverse
+[35m[1mScanning dependencies of target InvertedPendulumActDynLinearizedForward[0m
+[ 33%] [32mBuilding CXX object CMakeFiles/InvertedPendulumActDynLinearizedForward.dir/include/ct/models/InvertedPendulum/codegen/InvertedPendulumActDynLinearizedForward.cpp.o[0m
+[35m[1mScanning dependencies of target HyALinearizationCodegen[0m
+[ 38%] [32mBuilding CXX object CMakeFiles/HyALinearizationCodegen.dir/src/HyA/codegen/HyALinearizationCodeGen.cpp.o[0m
+[35m[1mScanning dependencies of target quadrotorDynamics[0m
+[ 42%] [32mBuilding CXX object CMakeFiles/quadrotorDynamics.dir/src/Quadrotor/quadrotor_ode.cpp.o[0m
+[ 47%] [32mBuilding CXX object CMakeFiles/quadrotorDynamics.dir/src/Quadrotor/A_quadrotor.cpp.o[0m
+[ 52%] [32mBuilding CXX object CMakeFiles/quadrotorDynamics.dir/src/Quadrotor/B_quadrotor.cpp.o[0m
+[ 57%] [32mBuilding CXX object CMakeFiles/quadrotorDynamics.dir/src/Quadrotor/C_quadrotor.cpp.o[0m
+[ 61%] [32m[1mLinking CXX static library libquadrotorDynamics.a[0m
+[ 61%] Built target quadrotorDynamics
+[35m[1mScanning dependencies of target hya_ik[0m
+[ 66%] [32mBuilding CXX object CMakeFiles/hya_ik.dir/src/HyA/transform6d.cpp.o[0m
+[35m[1mScanning dependencies of target irb4600_ik[0m
+[ 71%] [32mBuilding CXX object CMakeFiles/irb4600_ik.dir/src/Irb4600/transform6d.cpp.o[0m
+[01m[K/home/rosuser/ws/catkin_workspace/src/dependencies/control-toolbox/ct_models/src/Irb4600/transform6d.cpp:[m[K In function ‘[01m[Kvoid irb4600_ik::ComputeFk(const IkReal*, irb4600_ik::IkReal*, irb4600_ik::IkReal*)[m[K’:
+[01m[K/home/rosuser/ws/catkin_workspace/src/dependencies/control-toolbox/ct_models/src/Irb4600/transform6d.cpp:301:242:[m[K [01;35m[Kwarning: [m[Kvariable ‘[01m[Kx61[m[K’ set but not used [[01;35m[K-Wunused-but-set-variable[m[K]
+  301 | IkReal x0,x1,x2,x3,x4,x5,x6,x7,x8,x9,x10,x11,x12,x13,x14,x15,x16,x17,x18,x19,x20,x21,x22,x23,x24,x25,x26,x27,x28,x29,x30,x31,x32,x33,x34,x35,x36,x37,x38,x39,x40,x41,x42,x43,x44,x45,x46,x47,x48,x49,x50,x51,x52,x53,x54,x55,x56,x57,x58,x59,x60,[01;35m[Kx61[m[K,x62,x63,x64;
+      |                                                                                                                                                                                                                                                  [01;35m[K^~~[m[K
+[ 76%] [32m[1mLinking CXX static library libhya_ik.a[0m
+[ 76%] Built target hya_ik
+[ 80%] [32m[1mLinking CXX static library libirb4600_ik.a[0m
+[ 80%] Built target irb4600_ik
+[ 85%] [32m[1mLinking CXX executable InvertedPendulumWithActuatorCodeGen[0m
+[ 85%] Built target InvertedPendulumWithActuatorCodeGen
+[ 90%] [32m[1mLinking CXX static library libInvertedPendulumActDynLinearizedForward.a[0m
+[ 90%] Built target InvertedPendulumActDynLinearizedForward
+[ 95%] [32m[1mLinking CXX executable HyQLinearizationCodegen[0m
+[ 95%] Built target HyQLinearizationCodegen
+[100%] [32m[1mLinking CXX executable HyALinearizationCodegen[0m
+[100%] Built target HyALinearizationCodegen

@@ -1,0 +1,23 @@
+[  0%] Built target geometry_msgs_generate_messages_eus
+[  0%] Built target _flatland_msgs_generate_messages_check_deps_SpawnModel
+[  0%] Built target _flatland_msgs_generate_messages_check_deps_Collisions
+[  0%] Built target _flatland_msgs_generate_messages_check_deps_MoveModel
+[  0%] Built target _flatland_msgs_generate_messages_check_deps_DeleteModel
+[  0%] Built target _flatland_msgs_generate_messages_check_deps_Collision
+[  0%] Built target _flatland_msgs_generate_messages_check_deps_DebugTopicList
+[  0%] Built target _flatland_msgs_generate_messages_check_deps_Vector2
+[  0%] Built target std_msgs_generate_messages_eus
+[  0%] Built target std_msgs_generate_messages_py
+[  0%] Built target geometry_msgs_generate_messages_py
+[  0%] Built target geometry_msgs_generate_messages_nodejs
+[  0%] Built target std_msgs_generate_messages_nodejs
+[  0%] Built target geometry_msgs_generate_messages_cpp
+[  0%] Built target std_msgs_generate_messages_lisp
+[  0%] Built target std_msgs_generate_messages_cpp
+[ 21%] Built target flatland_msgs_generate_messages_eus
+[ 44%] Built target flatland_msgs_generate_messages_py
+[ 63%] Built target flatland_msgs_generate_messages_nodejs
+[ 63%] Built target geometry_msgs_generate_messages_lisp
+[ 81%] Built target flatland_msgs_generate_messages_cpp
+[100%] Built target flatland_msgs_generate_messages_lisp
+[100%] Built target flatland_msgs_generate_messages

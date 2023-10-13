@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/etsi_message_generation/share/etsi_message_generation/cmake/etsi_message_generationConfig-version.cmake

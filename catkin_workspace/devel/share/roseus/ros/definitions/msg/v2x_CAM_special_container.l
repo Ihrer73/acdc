@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/definitions/share/roseus/ros/definitions/msg/v2x_CAM_special_container.l

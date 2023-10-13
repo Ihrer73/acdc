@@ -1,0 +1,8 @@
+prefix=/home/rosuser/ws/catkin_workspace/install
+
+Name: acdc_launchpack
+Description: Description of acdc_launchpack
+Version: 0.1.0
+Cflags: 
+Libs: -L${prefix}/lib -lacdc_launchpack
+Requires: roscpp tf2 tf2_ros tf2_geometry_msgs definitions

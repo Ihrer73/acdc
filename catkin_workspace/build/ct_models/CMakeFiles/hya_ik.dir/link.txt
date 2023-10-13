@@ -1,0 +1,2 @@
+/usr/bin/ar qc libhya_ik.a  CMakeFiles/hya_ik.dir/src/HyA/transform6d.cpp.o
+/usr/bin/ranlib libhya_ik.a

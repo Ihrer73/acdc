@@ -1,0 +1,10 @@
+(cl:in-package definitions-msg)
+(cl:export '(CONNECTINGLANE_LANEID-VAL
+          CONNECTINGLANE_LANEID
+          INTERSECTIONID-VAL
+          INTERSECTIONID
+          SIGNALGROUPID_PRESENT-VAL
+          SIGNALGROUPID_PRESENT
+          SIGNALGROUPID-VAL
+          SIGNALGROUPID
+))

@@ -1,0 +1,4 @@
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/object_fusion_wrapper/cmake/object_fusion_wrapperConfig.cmake
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/object_fusion_wrapper/cmake/object_fusion_wrapperConfig-version.cmake
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/object_fusion_wrapper/object_fusion_wrapper_node
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/pkgconfig/object_fusion_wrapper.pc

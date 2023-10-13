@@ -1,0 +1,4 @@
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/etsi_message_generation/cmake/etsi_message_generationConfig-version.cmake
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/etsi_message_generation/cmake/etsi_message_generationConfig.cmake
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/etsi_message_generation/cam_generator
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/pkgconfig/etsi_message_generation.pc

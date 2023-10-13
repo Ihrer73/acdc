@@ -1,0 +1,30 @@
+\subsubsection usage Usage
+\verbatim
+<node name="trajectory_planner" pkg="trajectory_planner" type="trajectory_planner">
+  <param name="mainFrequency" type="int" value="5" />
+  <param name="mpcIterations" type="int" value="8" />
+  <param name="targetVelocity" type="int" value="50" />
+  <param name="aCurvRefVel" type="double" value="1.0" />
+  <param name="aGradRefVel" type="double" value="5.0" />
+  <param name="velocityWeight" type="double" value="3.0" />
+  <param name="pathWeight" type="double" value="0.5" />
+  <param name="yawWeight" type="double" value="5.0" />
+  <param name="jerkWeight" type="double" value="1.0" />
+  <param name="alphaWeight" type="double" value="1.0" />
+  <param name="dynObjWeight" type="double" value="1.0" />
+  <param name="trafficLightWeight" type="double" value="5.0" />
+  <param name="pathRef" type="double" value="2.0" />
+  <param name="jerkRef" type="double" value="5.0" />
+  <param name="alphaRef" type="double" value="30.0" />
+  <param name="dynObjRef" type="double" value="10.0" />
+  <param name="trafficLightRef" type="double" value="10.0" />
+  <param name="deviationMaxV" type="double" value="10.0" />
+  <param name="deviationMaxA" type="double" value="3.0" />
+  <param name="deviationMaxY" type="double" value="1.0" />
+  <param name="deviationMaxYaw" type="double" value="30.0" />
+  <param name="deviationMaxDelta" type="double" value="30.0" />
+  <param name="objectiveTolerance" type="double" value="1000.0" />
+  <param name="printSummary" type="bool" value="False" />
+</node>
+\endverbatim
+

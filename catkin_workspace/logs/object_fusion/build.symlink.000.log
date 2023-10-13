@@ -1,0 +1,4 @@
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/object_fusion/cmake/object_fusionConfig-version.cmake
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/object_fusion/cmake/object_fusionConfig.cmake
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/libobject_fusion.so
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/pkgconfig/object_fusion.pc

@@ -1,0 +1,30 @@
+Not searching for unused variables given on the command line.
+[36m--[0m CLANG FORMAT IS: /usr/bin/clang-format
+[36m--[0m FOUND CLANG-FORMAT
+[36m--[0m The CXX compiler identification is GNU 9.4.0
+[36m--[0m Check for working CXX compiler: /usr/bin/c++
+[36m--[0m Check for working CXX compiler: /usr/bin/c++ -- works
+[36m--[0m Detecting CXX compiler ABI info
+[36m--[0m Detecting CXX compiler ABI info - done
+[36m--[0m Detecting CXX compile features
+[36m--[0m Detecting CXX compile features - done
+[36m--[0m Importing compile definition CPPAD as option.
+[36m--[0m Importing compile definition CPPADCG as option.
+[36m--[0m Looking for sgemm_
+[36m--[0m Looking for sgemm_ - not found
+[36m--[0m Looking for C++ include pthread.h
+[36m--[0m Looking for C++ include pthread.h - found
+[36m--[0m Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[36m--[0m Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[36m--[0m Found Threads: TRUE
+[36m--[0m Looking for sgemm_
+[36m--[0m Looking for sgemm_ - found
+[36m--[0m Found BLAS: /usr/lib/x86_64-linux-gnu/libblas.so
+[36m--[0m Found LAPACK library
+[36m--[0m Found BLASFEO in /opt/blasfeo ...
+[36m--[0m Found HPIPM in /opt/hpipm ...
+[36m--[0m Found HPIPM and BLASFEO
+[36m--[0m Found Doxygen: /usr/bin/doxygen (found version "1.8.17") found components: doxygen dot
+[36m--[0m Configuring done
+[36m--[0m Generating done
+[36m--[0m Build files have been written to: /home/rosuser/ws/catkin_workspace/build/ct_optcon

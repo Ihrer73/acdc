@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/etsi_visualization/lib/pkgconfig/etsi_visualization.pc

@@ -1,0 +1,4 @@
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/flatland_ika_plugins/cmake/flatland_ika_pluginsConfig-version.cmake
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/flatland_ika_plugins/cmake/flatland_ika_pluginsConfig.cmake
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/libflatland_ika_plugins_lib.so
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/pkgconfig/flatland_ika_plugins.pc

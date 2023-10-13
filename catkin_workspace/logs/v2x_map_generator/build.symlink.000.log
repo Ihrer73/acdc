@@ -1,0 +1,4 @@
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/v2x_map_generator/cmake/v2x_map_generatorConfig-version.cmake
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/v2x_map_generator/cmake/v2x_map_generatorConfig.cmake
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/v2x_map_generator/v2x_map_generator_node
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/pkgconfig/v2x_map_generator.pc

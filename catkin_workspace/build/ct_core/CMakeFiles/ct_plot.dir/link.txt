@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -pthread -std=c++14 -Wall -Wfatal-errors  -shared -Wl,-soname,libct_plot.so -o libct_plot.so CMakeFiles/ct_plot.dir/src/core/plot/plot.cpp.o 

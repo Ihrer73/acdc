@@ -1,0 +1,2 @@
+/usr/bin/ar qc libirb4600_ik.a  CMakeFiles/irb4600_ik.dir/src/Irb4600/transform6d.cpp.o
+/usr/bin/ranlib libirb4600_ik.a

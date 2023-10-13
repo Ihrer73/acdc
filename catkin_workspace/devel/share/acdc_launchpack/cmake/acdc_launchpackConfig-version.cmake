@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/acdc_launchpack/share/acdc_launchpack/cmake/acdc_launchpackConfig-version.cmake

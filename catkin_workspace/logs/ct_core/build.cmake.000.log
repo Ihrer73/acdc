@@ -1,0 +1,24 @@
+Not searching for unused variables given on the command line.
+[36m--[0m CLANG FORMAT IS: /usr/bin/clang-format
+[36m--[0m FOUND CLANG-FORMAT
+[36m--[0m The CXX compiler identification is GNU 9.4.0
+[36m--[0m Check for working CXX compiler: /usr/bin/c++
+[36m--[0m Check for working CXX compiler: /usr/bin/c++ -- works
+[36m--[0m Detecting CXX compiler ABI info
+[36m--[0m Detecting CXX compiler ABI info - done
+[36m--[0m Detecting CXX compile features
+[36m--[0m Detecting CXX compile features - done
+[36m--[0m Found Boost: /usr/lib/x86_64-linux-gnu/cmake/Boost-1.71.0/BoostConfig.cmake (found version "1.71.0")
+[36m--[0m llvm-config found at: /usr/bin/llvm-config
+[36m--[0m Found LLVM: /usr/lib/llvm-10/include
+[36m--[0m Could NOT find CLANG (missing: CLANG_INCLUDE_DIRS CLANG_LIBS)
+[36m--[0m Could not find LLVM/CLANG, LLVM-JIT will not be available
+[36m--[0m Found PkgConfig: /usr/bin/pkg-config (found version "0.29.1")
+[36m--[0m package CppAD found
+[36m--[0m package CppADCG found
+[36m--[0m COMPILING WITHOUT QWT
+[36m--[0m Python not found, plotting will not be available
+[36m--[0m Found Doxygen: /usr/bin/doxygen (found version "1.8.17") found components: doxygen dot
+[36m--[0m Configuring done
+[36m--[0m Generating done
+[36m--[0m Build files have been written to: /home/rosuser/ws/catkin_workspace/build/ct_core

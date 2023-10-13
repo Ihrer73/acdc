@@ -1,0 +1,2 @@
+/usr/bin/ar qc libquadrotorDynamics.a  CMakeFiles/quadrotorDynamics.dir/src/Quadrotor/quadrotor_ode.cpp.o CMakeFiles/quadrotorDynamics.dir/src/Quadrotor/A_quadrotor.cpp.o CMakeFiles/quadrotorDynamics.dir/src/Quadrotor/B_quadrotor.cpp.o CMakeFiles/quadrotorDynamics.dir/src/Quadrotor/C_quadrotor.cpp.o
+/usr/bin/ranlib libquadrotorDynamics.a

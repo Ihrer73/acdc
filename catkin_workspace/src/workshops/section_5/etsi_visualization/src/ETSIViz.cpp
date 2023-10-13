@@ -84,11 +84,11 @@ void ETSIViz::CAMCallback(const definitions::v2x_CAM& msg){
       // ### START CODE HERE
       // fill with information from message
       // use helping comments from Wiki
-      obj.IdInternal = 0; // stationID               // Task
-      float lon = 0;      // longitude (x)           // Task
-      float lat = 0;      // latitude (y)            // Task
-      float v_x = 0;      // velocity in x direction // Task
-      float v_y = 0;      // velocity in y direction // Task
+    obj.IdInternal = msg.header_stationID;                        // stationID // Solution
+    float lon = msg.basic_container.referencePosition_longitude;  // longitude (x)  // Solution
+    float lat = msg.basic_container.referencePosition_latitude;   // latitude (y)   // Solution
+    float v_x = msg.high_freq_container.speed_speedValue * std::cos(msg.high_freq_container.heading_headingValue); // velocity in x direction // Solution
+    float v_y = msg.high_freq_container.speed_speedValue * std::sin(msg.high_freq_container.heading_headingValue); // velocity in y direction // Solution
       // ### END CODE HERE
 
     obj.fMean.resize((int)definitions::ctra_model::COUNT);
@@ -155,6 +155,7 @@ void ETSIViz::markerCallback(const ros::TimerEvent& event) {
       if(update_map_vis)
       {
         markers.markers.push_back(MAPLane2LS(lane, converted_isctns_[i].header.frame_id, ids_mapem_lanes++));
+        markers.markers.push_back(MAPLane2Points(lane, converted_isctns_[i].header.frame_id, ids_mapem_lanes++));
         markers.markers.push_back(MAPLane2Text(lane, converted_isctns_[i].header.frame_id, ids_mapem_lanes++));
       }
 

@@ -79,6 +79,8 @@ SC CostTermIntermediate<STATE_DIM, CONTROL_DIM, MPC_NODE, SCALAR_EVAL, SCALAR>::
     const size_t index = MPC_NODE::state_dim + MPC_NODE::params_dim_cfg;
     SC distance = CppAD::sqrt(CppAD::pow(x[index] - x[0], 2) + CppAD::pow(x[index + 1] - x[1], 2));
     SC velocity = x[index + 2];
+    SC distPredictionToEgo = SC(0.0);
+    SC currDistPredToEgo = CppAD::sqrt(CppAD::pow(x[0] - x[index + 3], 2) + CppAD::pow(x[1] - x[index + 4], 2));
     for (size_t i = index + 3; i < STATE_DIM - 2; i += 3)
     {
         SC currDist = CppAD::sqrt(CppAD::pow(x[i] - x[0], 2) + CppAD::pow(x[i + 1] - x[1], 2));
@@ -88,12 +90,9 @@ SC CostTermIntermediate<STATE_DIM, CONTROL_DIM, MPC_NODE, SCALAR_EVAL, SCALAR>::
 
     // Ref path term
     SC pathRef = x[MPC_NODE::WEIGHTS::PATH_REF];
-    SC pathCost = distance / pathRef;
+    SC pathCost = CppAD::CondExpLt(distance, pathRef, distance / pathRef, CppAD::CondExpLt(CppAD::exp(distance / pathRef - 1), SC(10.0), CppAD::exp(distance / pathRef - 1), SC(10.0)));
     SC pathWeight = x[MPC_NODE::WEIGHTS::PATH];
     SC pathTerm = CppAD::pow(pathCost * pathWeight, 2);
-
-    // START TASK 2 CODE HERE
-    // use helping comments from Wiki and README.md
 
     //System State Vector:
     // x[0]: x -> Position X
@@ -108,59 +107,90 @@ SC CostTermIntermediate<STATE_DIM, CONTROL_DIM, MPC_NODE, SCALAR_EVAL, SCALAR>::
     // u[0]: j_lon -> longitudinal jerk
     // u[1]: alpha -> Steering Rate
 
-    // if necessary use CppAD::sin(...), CppAD::cos(...), CppAD::tan(...), CppAD::pow(...), CppAD::sqrt(...)
+    // Velocity Term
+    SC vScale = CppAD::CondExpGt(velocity, SC(10.0 / 3.6), velocity, SC(10.0 / 3.6));
+    SC vCost = (velocity - x[3]) / vScale;
+    SC vWeight = x[MPC_NODE::WEIGHTS::VEL];
+    SC velTerm = CppAD::pow(vCost * vWeight, 2);
+
     // Longitudinal jerk term
     SC jerkRef = x[MPC_NODE::WEIGHTS::JERK_REF];
-    SC jerkLonCost  ;
+    SC jerkLonCost = u[0] / jerkRef;
     SC jerkLonWeight = x[MPC_NODE::WEIGHTS::JERK];
-    SC jerkLonTerm  ;
-
-    // Alpha term
-    SC alphaRef = x[MPC_NODE::WEIGHTS::ALPHA_REF];
-    SC alphaCost  ;
-    SC alphaWeight = x[MPC_NODE::WEIGHTS::ALPHA];
-    SC alphaTerm  ;
+    SC jerkLonTerm = CppAD::pow(jerkLonCost * jerkLonWeight, 2);
 
     // Lateral jerk term
     //The vehicles wheel-base is defined by the variable wheelBase
     double wheelBase = MPC_NODE::systemDynamics::wheelBase;
-    SC jLat  ;
-    SC jerkLatCost  ;
+    SC jLat = (1 / wheelBase) * (2 * x[3] * CppAD::tan(x[6]) * x[4] + CppAD::pow(x[3], 2) * (CppAD::pow(CppAD::tan(x[6]), 2) + 1) * u[1]);
+    SC jerkLatCost = jLat / jerkRef;
     SC jerkLatWeight = x[MPC_NODE::WEIGHTS::JERK];
-    SC jerkLatTerm  ;
-    // END TASK 2 CODE HERE
+    SC jerkLatTerm = CppAD::pow(jerkLatCost * jerkLatWeight, 2);
 
-    // START TASK 3 CODE HERE
-    // Velocity Term
-    // if necessary use CppAD::sin(...), CppAD::cos(...), CppAD::tan(...), CppAD::pow(...), CppAD::sqrt(...)
-    SC vScale = CppAD::CondExpGt(velocity, SC(10.0 / 3.6), velocity, SC(10.0 / 3.6));
-    SC vCost  ;
-    SC vWeight = x[MPC_NODE::WEIGHTS::VEL];
-    SC velTerm  ;
-    // END TASK 3 CODE HERE
-
-    // START TASK 4 CODE HERE
     // Dyn obj
-    // if necessary use CppAD::sin(...), CppAD::cos(...), CppAD::tan(...), CppAD::pow(...), CppAD::sqrt(...)
     SC dynObjX = x[MPC_NODE::DYNOBJCOORDS::X];
     SC dynObjY = x[MPC_NODE::DYNOBJCOORDS::Y];
     SC dynObjRef = x[MPC_NODE::WEIGHTS::DYNOBJ_REF];
-    SC dynObjDist  ;
+    SC dynObjDist = CppAD::sqrt(CppAD::pow(dynObjX - x[0], 2) + CppAD::pow(dynObjY - x[1], 2));
     SC dynObjCost = CppAD::CondExpLt(dynObjDist, dynObjRef, CppAD::cos(SC(M_PI) * CppAD::pow(dynObjDist, 2) / CppAD::pow(dynObjRef, 2)) + 1, SC(0.0));
     SC dynObjWeight = x[MPC_NODE::WEIGHTS::DYNOBJ];
-    SC dynObjTerm  ;
-    // END TASK 4 CODE HERE
+    SC dynObjTerm = CppAD::pow(dynObjCost * dynObjWeight, 2);
 
-    // This cost term is relevant for Section 5
-    // Traffic Light
+
+    ////////////////////
+    // Traffic Lights //
+    ////////////////////
+
+    // Load DECELMODE variable (may be changed during traffic light cost term calculation)
+    SC tlDecelerationMode = x[MPC_NODE::TRAFFICLIGHT::DECELMODE];
+
+    // Load parameters
+    SC TrafficLightRef = x[MPC_NODE::WEIGHTS::TRAFFICLIGHT_REF];
+    SC TrafficLightWeight = x[MPC_NODE::WEIGHTS::TRAFFICLIGHT];
+
+    // Load Traffic Lights
     SC TrafficLightX = x[MPC_NODE::TRAFFICLIGHT::X_TL];
     SC TrafficLightY = x[MPC_NODE::TRAFFICLIGHT::Y_TL];
     SC TrafficLightState = x[MPC_NODE::TRAFFICLIGHT::STATE];
-    SC TrafficLightRef = x[MPC_NODE::WEIGHTS::TRAFFICLIGHT_REF];
-    SC TrafficLightDist = CppAD::sqrt(CppAD::pow(TrafficLightX - x[0], 2) + CppAD::pow(TrafficLightY - x[1], 2));
-    SC TrafficLightCost = CppAD::CondExpEq(TrafficLightState,SC(1.0),CppAD::CondExpLt(TrafficLightDist, TrafficLightRef, CppAD::cos(SC(M_PI) * CppAD::pow(TrafficLightDist, 2) / CppAD::pow(TrafficLightRef, 2)) + 1, SC(0.0)),SC(0.0));
-    SC TrafficLightWeight = x[MPC_NODE::WEIGHTS::TRAFFICLIGHT];
+    SC TrafficLightChange = x[MPC_NODE::TRAFFICLIGHT::CHANGE];
+    SC TrafficLightDistanceAlongPathVariable = x[MPC_NODE::TRAFFICLIGHT::DISTALONGPATH];
+    SC TrafficLightDistanceAlongPath = TrafficLightDistanceAlongPathVariable - distPredictionToEgo;
+    SC TrafficLightILX = x[MPC_NODE::TRAFFICLIGHT::X_IL]; // x dimension of one point of ingress lane
+    SC TrafficLightILY = x[MPC_NODE::TRAFFICLIGHT::Y_IL]; // y dimension of one point of ingress lane
+    SC dTL_X = TrafficLightX - TrafficLightILX; // x dimension of the TL orientation vector (TL location - TL ingress line point)
+    SC dTL_Y = TrafficLightY - TrafficLightILY; // y dimension of the TL orientation vector (TL location - TL ingress line point)
+
+    // Check if 1st traffic light will turn red if current velocity is maintained 
+    // -> only trigger if vehicle speed is above threshold -> here: current speed must be bigger than 25 km/h (not meaningful during acceleration after a previous TL just turned green)
+    // -> also activate deceleration mode for this case (if not already activated)
+    SC TrafficLightV2XThreshold = SC(6.944); // 25 km/h
+    SC TrafficLightStateV2X = CppAD::CondExpEq(TrafficLightState, SC(0.0), CppAD::CondExpLt(x[3] * TrafficLightChange, TrafficLightDistanceAlongPath, CppAD::CondExpGt(x[3], TrafficLightV2XThreshold, SC(1.0), SC(0.0)), SC(0.0)), SC(1.0));
+    tlDecelerationMode = CppAD::CondExpEq(tlDecelerationMode, SC(0.0), CppAD::CondExpEq(TrafficLightState, SC(0.0), CppAD::CondExpLt(x[3] * TrafficLightChange, TrafficLightDistanceAlongPath, CppAD::CondExpGt(x[3], TrafficLightV2XThreshold, SC(1.0), SC(0.0)), SC(0.0)), SC(1.0)), SC(1.0));
+    SC TrafficLightDotProd = ((TrafficLightX - x[0]) * dTL_X + (TrafficLightY - x[1]) * dTL_Y); //use the dot product of the TL orientation vector and the distance vector as indicatior if the stopline was crossed or not
+    // calculate distance to stopline based on linear model of stopline (proof see report)
+    SC TrafficLightClosestDist = CppAD::abs((x[0] - TrafficLightX) * (- dTL_X) - (x[1] - TrafficLightY) * dTL_Y)/CppAD::sqrt(CppAD::pow(dTL_Y, 2) + CppAD::pow(- dTL_X, 2));
+    SC TrafficLightDist = CppAD::CondExpLt(TrafficLightDotProd, SC(0.0), TrafficLightRef, TrafficLightClosestDist); // negative distance represents the vehicle already crossed the stoping line
+    SC TrafficLightCost = CppAD::CondExpEq(TrafficLightStateV2X, SC(1.0), CppAD::CondExpLt(TrafficLightDist, TrafficLightRef, CppAD::cos(SC(M_PI) * CppAD::pow(TrafficLightDist, 2) / CppAD::pow(TrafficLightRef, 2)) + 1, SC(0.0)), SC(0.0));
     SC TrafficLightTerm = CppAD::pow(TrafficLightCost * TrafficLightWeight, 2);
+
+
+    // Alpha term
+    SC alphaRef = x[MPC_NODE::WEIGHTS::ALPHA_REF];
+    SC alphaCost = u[1] / alphaRef;
+
+    // Penalize hard steering while at high speeds
+    SC alphaCostHighSpeedsLowerBoundary = SC(8.333); // 30 km/h
+    SC alphaCostHighSpeedsHigherBoundary = SC(13.888); // 50 km/h
+    SC alphaCostHighSpeedsMaxCost = SC(2.0);
+    SC alphaCostHighSpeeds = CppAD::CondExpGt(x[3], alphaCostHighSpeedsLowerBoundary, alphaCost * ((alphaCostHighSpeedsMaxCost / (alphaCostHighSpeedsHigherBoundary - alphaCostHighSpeedsLowerBoundary)) * x[3] - (alphaCostHighSpeedsMaxCost / (alphaCostHighSpeedsHigherBoundary - alphaCostHighSpeedsLowerBoundary)) * alphaCostHighSpeedsLowerBoundary), SC(0.0));
+
+    // Penalize steering during decelerating at traffic light (only for speeds above 15 km/h)
+    SC tlDecelerationModeThreshold = SC(4.166); // 15 km/h
+    SC alphaCostDecelMode = CppAD::CondExpGt(x[3], tlDecelerationModeThreshold, SC(10.0) * alphaCost * tlDecelerationMode, SC(0.0));
+
+    SC alphaWeight = x[MPC_NODE::WEIGHTS::ALPHA];
+    SC alphaTerm = CppAD::pow(alphaCost * alphaWeight, 2) + CppAD::pow(alphaCostHighSpeeds * alphaWeight, 2) + CppAD::pow(alphaCostDecelMode * alphaWeight, 2);
+
 
     // Return sum
     return pathTerm + jerkLonTerm + jerkLatTerm + alphaTerm + velTerm + dynObjTerm + TrafficLightTerm;
@@ -215,13 +245,13 @@ void ACDC_VehcicleSystem<SCALAR>::computeControlledDynamics(const StateVector<ST
 
     // The vehicles wheel-base is defined by the class variable wheelBase
 
-    derivative(0)  ; // derivative of x
-    derivative(1)  ; // derivative of y
-    derivative(2)  ; // derivative of s
-    derivative(3)  ; // derivative of v
-    derivative(4)  ; // derivative of a
-    derivative(5)  ; // derivative of psi
-    derivative(6)  ; // derivative of delta
+    derivative(0) = state(3) * cos(state(5)); // derivative of x
+    derivative(1) = state(3) * sin(state(5)); // derivative of y
+    derivative(2) = state(3); // derivative of s
+    derivative(3) = state(4); // derivative of v
+    derivative(4) = control(0); // derivative of a
+    derivative(5) = (state(3) / wheelBase) * tan(state(6)); // derivative of psi
+    derivative(6) = control(1); // derivative of delta
     // END TASK 1 CODE HERE
 }
 

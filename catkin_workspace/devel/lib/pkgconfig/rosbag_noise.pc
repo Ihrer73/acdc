@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/rosbag_noise/lib/pkgconfig/rosbag_noise.pc

@@ -1,0 +1,12 @@
+(cl:in-package definitions-msg)
+(cl:export '(DELTALATITUDE-VAL
+          DELTALATITUDE
+          DELTALONGITUDE-VAL
+          DELTALONGITUDE
+          DELTAALTITUDE-VAL
+          DELTAALTITUDE
+          PATHDELTATIMEPRESENT-VAL
+          PATHDELTATIMEPRESENT
+          PATHDELTATIME-VAL
+          PATHDELTATIME
+))

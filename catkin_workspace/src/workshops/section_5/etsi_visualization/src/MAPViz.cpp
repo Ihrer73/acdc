@@ -26,7 +26,7 @@ void ETSIViz::MAPCallback(const definitions::v2x_MAP& msg) {
     
     // ### START CODE HERE ###
     // Identify number of intersections in message
-    int n_intersections = 0; // Task
+    int n_intersections = msg.intersections.size(); // Task
     // ### END CODE HERE ###
 
     // Loop over all intersections in message
@@ -122,6 +122,57 @@ visualization_msgs::Marker ETSIViz::MAPLane2LS(const definitions::v2x_MAP_Lane& 
     marker.header.stamp = ros::Time::now();
 
     marker.ns="MAPEM_Lanes";
+    marker.id = id;
+    marker.action = 0;
+    marker.type = visualization_msgs::Marker::LINE_STRIP;
+
+    if (lane.directionalUse == 0) { // Ingress
+    
+    int laneVectorLen = lane.lane_coordinates.size()-2;
+    geometry_msgs::Point startPoint = lane.lane_coordinates[laneVectorLen]; //access to the last but one point
+    geometry_msgs::Point endPoint = lane.lane_coordinates.back(); //access to the last point
+
+    //derive the perpendicular line to the ingress lane
+    auto points_dx = endPoint.x - startPoint.x;
+    auto points_dy = endPoint.y - startPoint.y;
+    auto points_d = sqrt(points_dx * points_dx + points_dy * points_dy); 
+    points_d = points_d / 1.4; //gain factor 1.3: half width of the lane
+    startPoint.x = endPoint.x - points_dy / points_d;
+    startPoint.y = endPoint.y + points_dx / points_d;
+    endPoint.x = endPoint.x + points_dy / points_d;
+    endPoint.y = endPoint.y - points_dx / points_d;
+
+    std::vector<geometry_msgs::Point> lanePoints = {startPoint, endPoint};
+     
+    marker.points = lanePoints;
+        marker.color.r = (131.0/255.0);
+        marker.color.g = (226.0/255.0);
+        marker.color.b = (242.0/255.0);
+
+    // Change opacity depending on laneType
+    if (lane.laneType == 0) { // Vehicle as "relevant" lanes
+        marker.color.a = 1.0;
+    } else {
+        marker.color.a = 0.5;
+    }
+    marker.scale.x = 0.5;
+    marker.scale.y = 0.5;
+    marker.scale.z = 0.5;
+    marker.pose.orientation.x = 0.0;
+    marker.pose.orientation.y = 0.0;
+    marker.pose.orientation.z = 0.0;
+    marker.pose.orientation.w = 1.0;
+    }
+    return marker;
+}
+
+visualization_msgs::Marker ETSIViz::MAPLane2Points(const definitions::v2x_MAP_Lane& lane, const std::string& frame_id, const size_t& id) const
+{
+    visualization_msgs::Marker marker;
+    marker.header.frame_id = frame_id;
+    marker.header.stamp = ros::Time::now();
+
+    marker.ns="MAPEM_POINTS";
     marker.id = id;
     marker.action = 0;
     marker.type = visualization_msgs::Marker::POINTS;

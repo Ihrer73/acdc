@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/kindr/share/kindr/cmake/kindrConfig-version.cmake

@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/object_fusion/share/object_fusion/cmake/object_fusionConfig.cmake

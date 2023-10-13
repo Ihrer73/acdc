@@ -1,0 +1,13 @@
+Symlinking /home/rosuser/ws/catkin_workspace/devel/include/trajectory_planner/trajectory_plannerConfig.h
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/trajectory_planner/cmake/trajectory_plannerConfig-version.cmake
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/trajectory_planner/cmake/trajectory_plannerConfig.cmake
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/trajectory_planner/docs/trajectory_plannerConfig.wikidoc
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/trajectory_planner/docs/trajectory_plannerConfig.dox
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/trajectory_planner/docs/trajectory_plannerConfig-usage.dox
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/python3/dist-packages/trajectory_planner/__init__.py
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/python3/dist-packages/trajectory_planner/cfg/trajectory_plannerConfig.py
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/python3/dist-packages/trajectory_planner/cfg/__init__.py
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/trajectory_planner/trajectory_planner
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/trajectory_planner/trajectory_planner_original
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/trajectory_planner/trajectory_planner_original_stabilized
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/pkgconfig/trajectory_planner.pc

@@ -1,0 +1,29 @@
+\subsubsection parameters ROS parameters
+
+Reads and maintains the following parameters on the ROS server
+
+- \b "~mainFrequency" : \b [int] Frequency in which the MPC is to be run (1/s) min: 1, default: 5, max: 10
+- \b "~mpcIterations" : \b [int] Number of MPC iterations to run when called with the main frequency min: 1, default: 8, max: 30
+- \b "~targetVelocity" : \b [int] Velocity to drive with (km/h) min: 1, default: 50, max: 50
+- \b "~aCurvRefVel" : \b [double] Max lateral acceleration when interpolating velocity samples (m/s^2) min: 0.1, default: 1.0, max: 30.0
+- \b "~aGradRefVel" : \b [double] Max longitudinal acceleration when interpolating velocity samples (m/s^2) min: 0.1, default: 5.0, max: 30.0
+- \b "~velocityWeight" : \b [double] Weighting factor for velocity deviation cost min: 0.0, default: 3.0, max: 10.0
+- \b "~pathWeight" : \b [double] Weighting factor for path deviation cost min: 0.0, default: 0.5, max: 10.0
+- \b "~yawWeight" : \b [double] Weighting factor for terminal yaw deviation cost min: 0.0, default: 5.0, max: 10.0
+- \b "~jerkWeight" : \b [double] Weighting factor for jerk cost min: 0.0, default: 1.0, max: 10.0
+- \b "~alphaWeight" : \b [double] Weighting factor for steering rate cost min: 0.0, default: 1.0, max: 10.0
+- \b "~dynObjWeight" : \b [double] Weighting factor for dynamic object cost min: 0.0, default: 1.0, max: 10.0
+- \b "~trafficLightWeight" : \b [double] Weighting factor for traffic light min: 0.0, default: 5.0, max: 10.0
+- \b "~pathRef" : \b [double] Tolerated distance to reference path [m] min: 0.0, default: 2.0, max: 10.0
+- \b "~jerkRef" : \b [double] Ref jerk [m/s^3] min: 0.0, default: 5.0, max: 10.0
+- \b "~alphaRef" : \b [double] Ref alpha [deg/s] min: 0.0, default: 30.0, max: 60.0
+- \b "~dynObjRef" : \b [double] Target distance to dynamic object [m] min: 1.0, default: 10.0, max: 50.0
+- \b "~trafficLightRef" : \b [double] Target distance to traffic light [m] min: 1.0, default: 10.0, max: 50.0
+- \b "~deviationMaxV" : \b [double] Limit for velocity deviation before resetting MPC (km/h) min: 0.0, default: 10.0, max: 30.0
+- \b "~deviationMaxA" : \b [double] Limit for acceleration deviation before resetting MPC (m/s^2) min: 0.0, default: 3.0, max: 10.0
+- \b "~deviationMaxY" : \b [double] Limit for Y deviation before resetting MPC (m) min: 0.0, default: 1.0, max: 2.0
+- \b "~deviationMaxYaw" : \b [double] Limit for yaw deviation before resetting MPC (degree) min: 0.0, default: 30.0, max: 180.0
+- \b "~deviationMaxDelta" : \b [double] Limit for steering angle deviation before resetting MPC (degree) min: 0.0, default: 30.0, max: 180.0
+- \b "~objectiveTolerance" : \b [double] Maximum cost value before marking trajectory invalid min: 0.0, default: 1000.0, max: 10000.0
+- \b "~printSummary" : \b [bool] Print out a solver summary after each MPC run min: False, default: False, max: True
+

@@ -54,10 +54,9 @@
   </include>
 
   <!-- Trajectory Planner -->
-  <node name="trajectory_planner_clean" pkg="trajectory_planner" type="trajectory_planner_clean.sh" output="screen"></node>
   <node name="trajectory_planner" pkg="trajectory_planner" type="trajectory_planner" output="screen">
-    <param name="topic_spatem" value="/SPATEM" /> <!-- fill in here your choosen topic name -->
-    <param name="topic_mapem" value="/MAPEM" /> <!-- fill in here your choosen topic name -->
+      <param name="topic_spatem" value="/TopicSPATs" />
+      <param name="topic_mapem" value="/TopicMAPs" />
   </node>
 
    <!-- Trajectory Controller -->
@@ -71,8 +70,24 @@
   <include file="$(find etsi_visualization)/launch/start_ETSIViz.launch">
   </include>
 
-  <!-- Generate and send CAM -->
-  <include file="$(find etsi_message_generation)/launch/start_cam_generator.launch" />
-  <include file="$(find acdc_launchpack)/launch/send_cam_mqtt.launch" />
+  <!--MAPEM msg generator-->
+  <node name="map_generator_node" pkg="v2x_map_generator" type="v2x_map_generator_node" output="screen">
+      <rosparam command="load" file="$(find v2x_map_generator)/config/custom_mapem.yaml" />
+      <param name="config/frequency" value="1.0" type="double" />
+      <param name="config/topic_out" value="/TopicMAPs" type="string" />
+  </node>
+  
+    <!--SPATEM msg generator-->
+  <node name="spat_generator_node" pkg="v2x_spat_generator" type="v2x_spat_generator_node" output="screen">
+      <rosparam command="load" file="$(find v2x_spat_generator)/launch/custom_spat_message.yaml" />
+      <param name="config/frequency" value="10.0" type="double" />
+      <param name="config/sg_1_red" value="false" type="bool" />
+      <param name="config/sg_2_red" value="true" type="bool" />
+      <param name="config/topic_out" value="/TopicSPATs" type="string" />
+      <param name="config/time_to_green_1" value="35.0" type="double" />
+      <param name="config/time_to_red_1" value="20.0" type="double" />
+      <param name="config/time_to_green_2" value="55.0" type="double" />
+      <param name="config/time_to_red_2" value="40.0" type="double" />
+  </node>
 
 </launch>

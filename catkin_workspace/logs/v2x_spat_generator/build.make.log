@@ -1,0 +1,34 @@
+[  0%] Built target geometry_msgs_generate_messages_eus
+[  0%] Built target visualization_msgs_generate_messages_nodejs
+[  0%] Built target visualization_msgs_generate_messages_py
+[  0%] Built target geometry_msgs_generate_messages_py
+[  0%] Built target visualization_msgs_generate_messages_cpp
+[  0%] Built target rosgraph_msgs_generate_messages_eus
+[  0%] Built target rosgraph_msgs_generate_messages_cpp
+[  0%] Built target roscpp_generate_messages_nodejs
+[  0%] Built target std_msgs_generate_messages_eus
+[  0%] Built target geometry_msgs_generate_messages_lisp
+[  0%] Built target visualization_msgs_generate_messages_eus
+[  0%] Built target geometry_msgs_generate_messages_cpp
+[  0%] Built target visualization_msgs_generate_messages_lisp
+[  0%] Built target geometry_msgs_generate_messages_nodejs
+[  0%] Built target roscpp_generate_messages_eus
+[  0%] Built target roscpp_generate_messages_cpp
+[  0%] Built target roscpp_generate_messages_py
+[  0%] Built target rosgraph_msgs_generate_messages_py
+[  0%] Built target definitions_generate_messages_eus
+[  0%] Built target rosgraph_msgs_generate_messages_lisp
+[  0%] Built target std_msgs_generate_messages_lisp
+[  0%] Built target definitions_generate_messages_lisp
+[  0%] Built target roscpp_generate_messages_lisp
+[  0%] Built target std_msgs_generate_messages_py
+[  0%] Built target rosgraph_msgs_generate_messages_nodejs
+[  0%] Built target std_msgs_generate_messages_cpp
+[  0%] Built target definitions_generate_messages_cpp
+[  0%] Built target definitions_generate_messages_nodejs
+[  0%] Built target definitions_generate_messages_py
+[  0%] Built target std_msgs_generate_messages_nodejs
+[35m[1mScanning dependencies of target v2x_spat_generator_node[0m
+[ 33%] [32mBuilding CXX object CMakeFiles/v2x_spat_generator_node.dir/src/NodeStatus.cpp.o[0m
+[ 66%] [32m[1mLinking CXX executable /home/rosuser/ws/catkin_workspace/devel/.private/v2x_spat_generator/lib/v2x_spat_generator/v2x_spat_generator_node[0m
+[100%] Built target v2x_spat_generator_node

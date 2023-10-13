@@ -1,0 +1,19 @@
+\subsubsection usage Usage
+\verbatim
+<node name="trj_ctrl" pkg="trajectory_ctrl" type="trj_ctrl">
+  <param name="dv_P" type="double" value="0.5" />
+  <param name="dv_I" type="double" value="0.05" />
+  <param name="dv_D" type="double" value="0.0" />
+  <param name="dy_P" type="double" value="0.1" />
+  <param name="dy_I" type="double" value="0.002" />
+  <param name="dy_D" type="double" value="0.04" />
+  <param name="dpsi_P" type="double" value="1.2" />
+  <param name="dpsi_I" type="double" value="0.3" />
+  <param name="dpsi_D" type="double" value="0.0" />
+  <param name="k_FF_a" type="double" value="1.0" />
+  <param name="k_FF_stAng" type="double" value="1.0" />
+  <param name="T_LookAhead_Lon" type="double" value="0.1" />
+  <param name="T_LookAhead_Lat" type="double" value="0.1" />
+</node>
+\endverbatim
+

@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/rosbag_noise/share/rosbag_noise/cmake/rosbag_noiseConfig.cmake

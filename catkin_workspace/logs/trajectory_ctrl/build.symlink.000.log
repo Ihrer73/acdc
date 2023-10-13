@@ -1,0 +1,11 @@
+Symlinking /home/rosuser/ws/catkin_workspace/devel/include/trajectory_ctrl/trj_ctrlConfig.h
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/trajectory_ctrl/cmake/trajectory_ctrlConfig-version.cmake
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/trajectory_ctrl/cmake/trajectory_ctrlConfig.cmake
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/trajectory_ctrl/docs/trj_ctrlConfig.wikidoc
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/trajectory_ctrl/docs/trj_ctrlConfig.dox
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/trajectory_ctrl/docs/trj_ctrlConfig-usage.dox
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/python3/dist-packages/trajectory_ctrl/__init__.py
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/python3/dist-packages/trajectory_ctrl/cfg/__init__.py
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/python3/dist-packages/trajectory_ctrl/cfg/trj_ctrlConfig.py
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/trajectory_ctrl/trajectory_control_node
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/pkgconfig/trajectory_ctrl.pc

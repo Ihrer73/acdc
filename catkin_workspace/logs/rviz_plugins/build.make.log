@@ -1,0 +1,6 @@
+[  6%] [34m[1mAutomatic MOC for target rviz_plugins_detection_list[0m
+[  6%] Built target rviz_plugins_detection_list_autogen
+[ 13%] [34m[1mAutomatic MOC for target rviz_plugins_object_list[0m
+[ 13%] Built target rviz_plugins_object_list_autogen
+[ 46%] Built target rviz_plugins_detection_list
+[100%] Built target rviz_plugins_object_list

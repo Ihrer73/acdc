@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/mqtt_launchpack/lib/pkgconfig/mqtt_launchpack.pc

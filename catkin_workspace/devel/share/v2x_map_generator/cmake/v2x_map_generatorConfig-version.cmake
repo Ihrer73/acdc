@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/v2x_map_generator/share/v2x_map_generator/cmake/v2x_map_generatorConfig-version.cmake

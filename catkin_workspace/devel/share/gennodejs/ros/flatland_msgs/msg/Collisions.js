@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/flatland_msgs/share/gennodejs/ros/flatland_msgs/msg/Collisions.js

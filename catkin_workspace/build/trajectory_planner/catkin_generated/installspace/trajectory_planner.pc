@@ -1,0 +1,8 @@
+prefix=/home/rosuser/ws/catkin_workspace/install
+
+Name: trajectory_planner
+Description: Description of trajectory_planner
+Version: 0.0.1
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: roscpp geometry_msgs visualization_msgs definitions dynamic_reconfigure tf2 tf2_ros tf2_geometry_msgs ct_optcon

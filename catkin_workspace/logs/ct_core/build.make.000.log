@@ -1,0 +1,4 @@
+[35m[1mScanning dependencies of target ct_plot[0m
+[ 50%] [32mBuilding CXX object CMakeFiles/ct_plot.dir/src/core/plot/plot.cpp.o[0m
+[100%] [32m[1mLinking CXX shared library libct_plot.so[0m
+[100%] Built target ct_plot

@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/v2x_spat_generator/lib/pkgconfig/v2x_spat_generator.pc

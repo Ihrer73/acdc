@@ -36,6 +36,8 @@
 #define EIGEN_STACK_ALLOCATION_LIMIT 131072 * 2 // 256KB
 
 #include "ros/ros.h"
+#include "std_msgs/Float64.h"
+#include <math.h>
 
 // Parameters
 #include <dynamic_reconfigure/server.h>
@@ -53,6 +55,7 @@
 
 #include <tf2_ros/transform_listener.h>
 #include <geometry_msgs/Point.h>
+#include <std_msgs/Bool.h>
 
 // Control Toolbox
 #include <ct/optcon/optcon.h>
@@ -270,13 +273,13 @@ class PLANNER
 {
 public:
     // Constants for tweaking
-    static const size_t params_dim = 77; // (Passive) parameter amount used in the AD cost functions. They are used for configurable settings (e.g. weights, see amount below) and the rest is filled with reference path samples.
+    static const size_t params_dim = 82; // (Passive) parameter amount used in the AD cost functions. They are used for configurable settings (e.g. weights, see amount below) and the rest is filled with reference path samples.
                                          // Increasing this will allow more reference path samples to be used, but increases the JIT compilation time when initially starting the MPC.
     double interpolation_s;
     static constexpr ct::core::Time timeHorizon = 4.0; // Time horizon of the MPC.
     static constexpr double mpc_dt = 0.2;              // Time discretization of the MPC.
 
-    static const size_t params_dim_cfg = 17; // Total amount of configurable passive parameters in the cost functions (besides ref path samples, but including dynamic object).
+    static const size_t params_dim_cfg = 22; // Total amount of configurable passive parameters in the cost functions (besides ref path samples, but including dynamic object).
     enum WEIGHTS
     { // Indices of the weights in the cost function state vector. 0-6 is used by the system state.
         VEL = 7,
@@ -303,7 +306,12 @@ public:
     {
         X_TL = 21,
         Y_TL = 22,
-        STATE = 23
+        STATE = 23,
+        CHANGE = 24,
+        DISTALONGPATH = 25,
+        X_IL = 26,
+        Y_IL = 27,
+        DECELMODE = 28,
     };
 
     struct TrafficLight
@@ -313,6 +321,7 @@ public:
         int sig_id;
         int tl_id;
         bool red;
+        int change;
         ros::Time last_spat;
     };
 
@@ -352,19 +361,21 @@ public:
         n.param<std::string>("/vehicle/ikaObjectList", subscribe_topic_dyn, default_subscribe_topic_dyn);
         subscriber_dyn = n.subscribe(subscribe_topic_dyn, 1, &PLANNER::callbackDynObjects, this);
 
-        std::string default_subscribe_topic_spat = "/SPATEM"; // fill in your SPaT topic
+        std::string default_subscribe_topic_spat = "/TopicSPATs"; // fill in your SPaT topic
         std::string subscribe_topic_spat;
         if(!n.param<std::string>("/trajectory_planner/topic_spatem", subscribe_topic_spat, default_subscribe_topic_spat)) ROS_WARN("topic_spatem not set, defaulting to %s.", default_subscribe_topic_spat.c_str());
         subscriber_spat = n.subscribe(subscribe_topic_spat, 1, &PLANNER::callbackSPAT, this);
 
-        std::string default_subscribe_topic_map = "/MAPEM"; // fill in your MAP topic
+        std::string default_subscribe_topic_map = "/TopicMAPs"; // fill in your MAP topic
         std::string subscribe_topic_map;
         if(!n.param<std::string>("/trajectory_planner/topic_mapem", subscribe_topic_map, default_subscribe_topic_map)) ROS_WARN("topic_mapem not set, defaulting to %s.", default_subscribe_topic_map.c_str());
         subscriber_map = n.subscribe(subscribe_topic_map, 1, &PLANNER::callbackMAP, this);
 
         // Publishers
         publisher_trj = n.advertise<definitions::IkaTpTrajectoryInterface>("/mpc/trajectory_interface", 1000);
+        publisher_cost = n.advertise<std_msgs::Float64>("/mpc/final_cost", 1000);
         publisher_rviz = n.advertise<visualization_msgs::Marker>("/mpc/visualization_marker_array", 0);
+        publisher_NodeStatus = n.advertise<std_msgs::Bool>("/NodeStatus", 1);
 
         // Dynamic reconfigure
         dynamic_reconfigure::Server<trajectory_planner::trajectory_plannerConfig> server;
@@ -636,7 +647,11 @@ public:
             const double curvVMax = std::sqrt(cfg.aCurvRefVel / curvature);
             referenceVelocity[i] = std::min(referenceVelocity[i], curvVMax);
         }
+    }
 
+    // Compute velocity for each reference path sample.
+    void smootheVelocitySamples()
+    {
         // Apply smoothing step according to aRef in longitudinal direction (backward sweep)
         for (int i = referenceVelocity.size() - 2; i >= 0; i--)
         {
@@ -792,6 +807,11 @@ public:
             }
         }
         publisher_rviz.publish(marker);
+
+        std_msgs::Bool msg;
+        msg.data = true;
+        publisher_NodeStatus.publish(msg);
+        //ROS_INFO_STREAM("NodeStatus msg published");
     }
 
     void getInterpolationParameters(const StateVectorArray<state_dim> &traj, const double &s, size_t &index, double &factor)
@@ -814,6 +834,61 @@ public:
         {
             factor = (s - traj[index][2]) / (traj[index + 1][2] - traj[index][2]);
         }
+    }
+
+    int getChangeTimeForTL(const uint16_t& next_change)
+    {
+        int epoch_01_2022_ = 1640995200;
+
+        //Current ROS-Time
+        double ros_soy = ros::WallTime::now().toSec() - epoch_01_2022_; // second of year
+        int ros_moy = ros_soy/60; // minute of year
+        int ros_moh = ros_moy%60; // minute of hour
+        int ros_sec = (int) (ros_soy)%60; // second of minute
+
+        //next Change Time
+        int nxt_moh = next_change/600;
+        int nxt_sec = (next_change/10)%60;
+        int change = (nxt_moh - ros_moh)*60 + (nxt_sec - ros_sec);
+        if (ros_moh > 57 && nxt_moh < 3){
+            change = change + 3600;
+        }
+        
+        return change;
+    }
+
+    double getTLDistAlongPath(const PLANNER::TrafficLight &tl){
+        
+        // Compute TL Distance along reference path
+        double totalDist = 0;
+        int id_closestDist = getClosestRefpathID(referencePath);
+
+        // find closest position between traffic light and localRefPath
+        double currentTLDist = 0;
+        double closestTLDist = -1;
+        int id_closestTLRefPath = 0;
+        for(int j = 0; j < referencePath.size(); j++){
+            currentTLDist = std::sqrt(pow((tl.ingress_lane.back().x) - (referencePath[j].x), 2.0) + pow((tl.ingress_lane.back().y) - (referencePath[j].y), 2.0));
+            if ((closestTLDist == -1) || (currentTLDist < closestTLDist))
+            {
+                closestTLDist = currentTLDist;
+                id_closestTLRefPath = j;
+            }
+        }
+
+        // Add distance between ego pose and 1st reference point
+        totalDist += std::sqrt(pow(referencePath[id_closestDist].x, 2.0) + pow(referencePath[id_closestDist].y, 2.0));
+
+        // Add distances of reference path points (skip last point, could be after traffic light)
+        for(int k = id_closestDist + 1; k <= id_closestTLRefPath - 1; k++)
+        {
+            totalDist += std::sqrt(pow((referencePath[k].x) - (referencePath[k-1].x), 2.0) + pow((referencePath[k].y) - (referencePath[k-1].y), 2.0));
+        }
+
+        // Add distance between second to last reference point and traffic light location
+        totalDist += std::sqrt(pow((referencePath[id_closestTLRefPath - 1].x) - (tl.ingress_lane.back().x), 2.0) + pow((referencePath[id_closestTLRefPath - 1].y) - (tl.ingress_lane.back().y), 2.0));
+
+        return totalDist;
     }
 
     // intpTraj can be a state/control vector or a feedback matrix
@@ -862,23 +937,132 @@ public:
         if(trafficlights.size())
         {
             std::vector<TrafficLight> loc_tl = getLocalTrafficLights();
-            //Select relevant traffic light
-            TrafficLight rel_tl = getRelevantTrafficLight(loc_tl);
-            double dist = std::sqrt(std::pow(rel_tl.ingress_lane.back().x,2.0)+std::pow(rel_tl.ingress_lane.back().y,2.0));
-            if(dist <= paramVector(WEIGHTS::TRAFFICLIGHT_REF - state_dim))
+            // Select relevant traffic lights
+            std::vector<TrafficLight> rel_tls = getTwoRelevantTrafficLights(loc_tl, referencePath);
+
+            // values for 2nd traffic light:
+            double tlChangeTwo = 99999;
+            double tlDistAlongPathTwo = 99999;
+
+            // set states for 1st TL (if it exists)
+            if (rel_tls.size() > 0)
             {
-                ROS_INFO_STREAM("Relevant Traffic Light ID: " << rel_tl.tl_id << " Signal Group ID: " << rel_tl.sig_id << " State Red: " << rel_tl.red);
+                // set states for 1st TL
+                paramVector(TRAFFICLIGHT::X_TL - state_dim) = rel_tls[0].ingress_lane.back().x;
+                paramVector(TRAFFICLIGHT::Y_TL - state_dim) = rel_tls[0].ingress_lane.back().y;
+                paramVector(TRAFFICLIGHT::STATE - state_dim) = (double)rel_tls[0].red;
+                paramVector(TRAFFICLIGHT::CHANGE - state_dim) = getChangeTimeForTL(rel_tls[0].change);
+                paramVector(TRAFFICLIGHT::DISTALONGPATH - state_dim) = getTLDistAlongPath(rel_tls[0]);
+                ROS_INFO_STREAM("Relevant 1st Traffic Light ID: " << rel_tls[0].tl_id << " State Red: " << rel_tls[0].red << " Relative Location: x = " << rel_tls[0].ingress_lane.back().x << " y = " << rel_tls[0].ingress_lane.back().y << " DistAlongPath: " << paramVector(TRAFFICLIGHT::DISTALONGPATH - state_dim));
+                int len_tl_one = rel_tls[0].ingress_lane.size() - 2;
+                paramVector(TRAFFICLIGHT::X_IL - state_dim) = rel_tls[0].ingress_lane[len_tl_one].x;
+                paramVector(TRAFFICLIGHT::Y_IL - state_dim) = rel_tls[0].ingress_lane[len_tl_one].y;
+                
             }
-            paramVector(TRAFFICLIGHT::X_TL - state_dim) = rel_tl.ingress_lane.back().x;
-            paramVector(TRAFFICLIGHT::Y_TL - state_dim) = rel_tl.ingress_lane.back().y;
-            paramVector(TRAFFICLIGHT::STATE - state_dim) = (double)rel_tl.red;
+            else { // if 1st TL doesn't exist pass dummy values
+                paramVector(TRAFFICLIGHT::X_TL - state_dim) = 999999;
+                paramVector(TRAFFICLIGHT::Y_TL - state_dim) = 999999;
+                paramVector(TRAFFICLIGHT::STATE - state_dim) = (double)false;
+                paramVector(TRAFFICLIGHT::CHANGE - state_dim) = 999999;
+                paramVector(TRAFFICLIGHT::DISTALONGPATH - state_dim) = 999999; 
+                paramVector(TRAFFICLIGHT::X_IL - state_dim) = 999998;
+                paramVector(TRAFFICLIGHT::Y_IL - state_dim) = 999998;
+            }
+
+            // set states for 2nd TL (if it exists)
+            if (rel_tls.size() > 1)
+            {
+                tlChangeTwo = getChangeTimeForTL(rel_tls[1].change);
+                tlDistAlongPathTwo = getTLDistAlongPath(rel_tls[1]);  
+                ROS_INFO_STREAM("Relevant 2nd Traffic Light ID: " << rel_tls[1].tl_id << " State Red: " << rel_tls[1].red << " Relative Location: x = " << rel_tls[1].ingress_lane.back().x << " y = " << rel_tls[1].ingress_lane.back().y << " DistAlongPath: " << tlDistAlongPathTwo);
+            }
+            
+            // Adapt desired velocity in referencePath to optimize fuel consumption
+            double optAvgSpeed = 0;
+            double offsetToStopBefore = 15;
+
+            // Check if 1st TL is red (if it exists)
+            if (rel_tls.size() > 0)
+            {
+                if (rel_tls[0].red)
+                {
+                    // 1st TL is red
+                    double distToTLStopPoint = paramVector(TRAFFICLIGHT::DISTALONGPATH - state_dim) - offsetToStopBefore;
+
+                    if (distToTLStopPoint < 0)
+                    {
+                        distToTLStopPoint = 0; // results in optAvgSpeed = 0 -> not activated
+                    }
+
+                    // Calc optimal avg speed to 1st TL to avoid idling (in m/sec)
+                    if (paramVector(TRAFFICLIGHT::CHANGE - state_dim) != 0)
+                    {
+                        optAvgSpeed = distToTLStopPoint/paramVector(TRAFFICLIGHT::CHANGE - state_dim);
+                    }
+                }
+                else { // 1st TL is green
+                    
+                    // Check if 2nd TL is red (if it exists)
+                    if (rel_tls.size() > 1)
+                    {
+                        if (rel_tls[1].red)
+                        {
+                            // 2nd TL is red
+                            double distToTLStopPointTwo = tlDistAlongPathTwo - offsetToStopBefore;                         
+
+                            if (distToTLStopPointTwo < 0)
+                            {
+                                distToTLStopPointTwo = 0; // results in optAvgSpeed = 0 -> not activated
+                            }
+
+                            // Calc optimal avg speed to 2nd TL to avoid idling (in m/sec)
+                            if (tlChangeTwo != 0)
+                            {
+                                optAvgSpeed = distToTLStopPointTwo/tlChangeTwo;
+                            }
+                        }
+                        else {
+                            // 2nd TL is green
+                            // no optimal average speed required -> all traffic lights are green
+                        }
+                    }
+                }
+            }
+
+            if (optAvgSpeed < 5/3.6) // if calulated optimal speed is lower than 5 km/h -> don't limit speed and just brake normally
+            {
+                optAvgSpeed = 0;
+            }
+
+            // overwrite values in referenceVelocity that are higher than optAvgSpeed with optAvgSpeed
+            if (optAvgSpeed != 0)
+            {
+                paramVector(TRAFFICLIGHT::DECELMODE - state_dim) = 1;
+                ROS_INFO_STREAM("Limited desired speed to " << std::to_string(optAvgSpeed) << " m/s in order to avoid idling.");
+                for (int i = 0; i < referenceVelocity.size(); i++) 
+                {
+                    if (referenceVelocity[i] > optAvgSpeed){
+                        referenceVelocity[i] = optAvgSpeed;
+                    }
+                }
+            }
+            else
+            {
+                paramVector(TRAFFICLIGHT::DECELMODE - state_dim) = 0;
+            }
         }
         else
         {
             paramVector(TRAFFICLIGHT::X_TL - state_dim) = 999999;
             paramVector(TRAFFICLIGHT::Y_TL - state_dim) = 999999;
             paramVector(TRAFFICLIGHT::STATE - state_dim) = (double)false;
+            paramVector(TRAFFICLIGHT::CHANGE - state_dim) = 999999;
+            paramVector(TRAFFICLIGHT::DISTALONGPATH - state_dim) = 999999; 
+            paramVector(TRAFFICLIGHT::X_IL - state_dim) = 999998;
+            paramVector(TRAFFICLIGHT::Y_IL - state_dim) = 999998;
         }
+
+        smootheVelocitySamples();
 
         // Reference path + velocity
         paramVector.tail(params_dim - params_dim_cfg).setConstant(999999);
@@ -894,6 +1078,10 @@ public:
         }
         costFunction->setCurrentParameters(paramVector);
         ilqr_mpc->changeCostFunction(costFunction);
+        // ROS_ERROR_STREAM(ilqr_mpc->getCost());
+        std_msgs::Float64 finalCost;
+        finalCost.data = ilqr_mpc->getCost();
+        publisher_cost.publish(finalCost);
     }
 
     // Function that determines the currently relevant target in a list of objects
@@ -943,6 +1131,8 @@ public:
 
     // Defined in .cpp files
     TrafficLight getRelevantTrafficLight(std::vector<TrafficLight> tls);
+    std::vector<PLANNER::TrafficLight> getTwoRelevantTrafficLights(std::vector<TrafficLight> tls, std::vector<geometry_msgs::Point> refPath);
+    int getClosestRefpathID(std::vector<geometry_msgs::Point> refPath);
     std::vector<PLANNER::TrafficLight> getLocalTrafficLights();
     void callbackSPAT(const definitions::v2x_SPAT& msg);
     void callbackMAP(const definitions::v2x_MAP& msg);
@@ -960,7 +1150,9 @@ protected:
     ros::Subscriber subscriber_spat;
     ros::Subscriber subscriber_map;
     ros::Publisher publisher_trj;
+    ros::Publisher publisher_cost;
     ros::Publisher publisher_rviz;
+    ros::Publisher publisher_NodeStatus;
 
     // Odometry
     definitions::FlatlandVehicleState vehicleData;

@@ -1,0 +1,8 @@
+prefix=/home/rosuser/ws/catkin_workspace/devel/.private/definitions
+
+Name: definitions
+Description: Description of definitions
+Version: 0.1.0
+Cflags: -I/home/rosuser/ws/catkin_workspace/devel/.private/definitions/include -I/home/rosuser/ws/catkin_workspace/src/dependencies/definitions/include -I/usr/include/eigen3
+Libs: -L${prefix}/lib 
+Requires: roscpp std_msgs geometry_msgs visualization_msgs message_runtime

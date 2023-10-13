@@ -1,0 +1,8 @@
+prefix=/home/rosuser/ws/catkin_workspace/install
+
+Name: rviz_plugins
+Description: Description of rviz_plugins
+Version: 0.10.3
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: definitions

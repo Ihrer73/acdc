@@ -1,0 +1,4 @@
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/etsi_visualization/cmake/etsi_visualizationConfig-version.cmake
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/etsi_visualization/cmake/etsi_visualizationConfig.cmake
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/etsi_visualization/ETSIViz
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/pkgconfig/etsi_visualization.pc

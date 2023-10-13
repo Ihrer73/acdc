@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/rviz_plugins/share/rviz_plugins/cmake/rviz_pluginsConfig.cmake

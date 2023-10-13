@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/trajectory_ctrl/include/trajectory_ctrl/trj_ctrlConfig.h

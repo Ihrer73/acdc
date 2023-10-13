@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/definitions/share/definitions/cmake/definitionsConfig.cmake

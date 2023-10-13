@@ -1,0 +1,8 @@
+prefix=/home/rosuser/ws/catkin_workspace/install
+
+Name: v2x_spat_generator
+Description: Description of v2x_spat_generator
+Version: 0.1.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp definitions

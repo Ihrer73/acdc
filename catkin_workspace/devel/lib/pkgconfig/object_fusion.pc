@@ -1,0 +1,1 @@
+/home/rosuser/ws/catkin_workspace/devel/.private/object_fusion/lib/pkgconfig/object_fusion.pc

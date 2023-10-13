@@ -1,0 +1,38 @@
+Determining if the function sgemm_ exists failed with the following output:
+Change Dir: /home/rosuser/ws/catkin_workspace/build/ct_optcon/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_3c5af/fast && /usr/bin/make -f CMakeFiles/cmTC_3c5af.dir/build.make CMakeFiles/cmTC_3c5af.dir/build
+make[1]: Entering directory '/home/rosuser/ws/catkin_workspace/build/ct_optcon/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_3c5af.dir/CheckFunctionExists.cxx.o
+/usr/bin/c++    -pthread -fopenmp -std=c++14 -Wno-unknown-pragmas -Wall -Wfatal-errors -DCHECK_FUNCTION_EXISTS=sgemm_   -o CMakeFiles/cmTC_3c5af.dir/CheckFunctionExists.cxx.o -c /home/rosuser/ws/catkin_workspace/build/ct_optcon/CMakeFiles/CheckFunctionExists/CheckFunctionExists.cxx
+Linking CXX executable cmTC_3c5af
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_3c5af.dir/link.txt --verbose=1
+/usr/bin/c++   -pthread -fopenmp -std=c++14 -Wno-unknown-pragmas -Wall -Wfatal-errors -DCHECK_FUNCTION_EXISTS=sgemm_   -pthread -std=c++14 -Wfatal-errors  -rdynamic CMakeFiles/cmTC_3c5af.dir/CheckFunctionExists.cxx.o  -o cmTC_3c5af 
+/usr/bin/ld: CMakeFiles/cmTC_3c5af.dir/CheckFunctionExists.cxx.o: in function `main':
+CheckFunctionExists.cxx:(.text+0x14): undefined reference to `sgemm_'
+collect2: error: ld returned 1 exit status
+make[1]: *** [CMakeFiles/cmTC_3c5af.dir/build.make:87: cmTC_3c5af] Error 1
+make[1]: Leaving directory '/home/rosuser/ws/catkin_workspace/build/ct_optcon/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_3c5af/fast] Error 2
+
+
+
+Determining if the function cheev_ exists failed with the following output:
+Change Dir: /home/rosuser/ws/catkin_workspace/build/ct_optcon/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/make cmTC_edce5/fast && /usr/bin/make -f CMakeFiles/cmTC_edce5.dir/build.make CMakeFiles/cmTC_edce5.dir/build
+make[1]: Entering directory '/home/rosuser/ws/catkin_workspace/build/ct_optcon/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_edce5.dir/CheckFunctionExists.cxx.o
+/usr/bin/c++    -pthread -fopenmp -std=c++14 -Wno-unknown-pragmas -Wall -Wfatal-errors -DCHECK_FUNCTION_EXISTS=cheev_   -o CMakeFiles/cmTC_edce5.dir/CheckFunctionExists.cxx.o -c /home/rosuser/ws/catkin_workspace/build/ct_optcon/CMakeFiles/CheckFunctionExists/CheckFunctionExists.cxx
+Linking CXX executable cmTC_edce5
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_edce5.dir/link.txt --verbose=1
+/usr/bin/c++   -pthread -fopenmp -std=c++14 -Wno-unknown-pragmas -Wall -Wfatal-errors -DCHECK_FUNCTION_EXISTS=cheev_   -pthread -std=c++14 -Wfatal-errors  -rdynamic CMakeFiles/cmTC_edce5.dir/CheckFunctionExists.cxx.o  -o cmTC_edce5  /usr/lib/x86_64-linux-gnu/libblas.so 
+/usr/bin/ld: CMakeFiles/cmTC_edce5.dir/CheckFunctionExists.cxx.o: in function `main':
+CheckFunctionExists.cxx:(.text+0x14): undefined reference to `cheev_'
+collect2: error: ld returned 1 exit status
+make[1]: *** [CMakeFiles/cmTC_edce5.dir/build.make:88: cmTC_edce5] Error 1
+make[1]: Leaving directory '/home/rosuser/ws/catkin_workspace/build/ct_optcon/CMakeFiles/CMakeTmp'
+make: *** [Makefile:121: cmTC_edce5/fast] Error 2
+
+
+

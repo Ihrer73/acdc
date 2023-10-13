@@ -1,0 +1,8 @@
+prefix=/home/rosuser/ws/catkin_workspace/install
+
+Name: flatland_ika_plugins
+Description: Description of flatland_ika_plugins
+Version: 0.1.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib -lflatland_ika_plugins_lib
+Requires: pluginlib roscpp flatland_server std_msgs geometry_msgs visualization_msgs definitions angles tf flatland_msgs

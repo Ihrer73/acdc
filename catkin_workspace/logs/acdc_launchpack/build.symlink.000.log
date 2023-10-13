@@ -1,0 +1,4 @@
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/acdc_launchpack/cmake/acdc_launchpackConfig-version.cmake
+Symlinking /home/rosuser/ws/catkin_workspace/devel/share/acdc_launchpack/cmake/acdc_launchpackConfig.cmake
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/acdc_launchpack/transformation_node
+Symlinking /home/rosuser/ws/catkin_workspace/devel/lib/pkgconfig/acdc_launchpack.pc

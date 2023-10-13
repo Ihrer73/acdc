@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/rosuser/ws/catkin_workspace/build/ct_core",
+  "command": "/usr/bin/c++  -DCPPAD -DCPPADCG -Dct_plot_EXPORTS -I/usr/include/eigen3 -I/home/rosuser/ws/catkin_workspace/src/dependencies/control-toolbox/ct_core/include -I/home/rosuser/ws/catkin_workspace/src/dependencies/control-toolbox/ct_core/examples/include   -pthread -std=c++14 -Wall -Wfatal-errors -fPIC   -o CMakeFiles/ct_plot.dir/src/core/plot/plot.cpp.o -c /home/rosuser/ws/catkin_workspace/src/dependencies/control-toolbox/ct_core/src/core/plot/plot.cpp",
+  "file": "/home/rosuser/ws/catkin_workspace/src/dependencies/control-toolbox/ct_core/src/core/plot/plot.cpp"
+}
+]

@@ -1,0 +1,8 @@
+prefix=/home/rosuser/ws/catkin_workspace/devel/.private/rosbag_noise
+
+Name: rosbag_noise
+Description: Description of rosbag_noise
+Version: 1.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: definitions

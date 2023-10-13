@@ -1,0 +1,8 @@
+prefix=/home/rosuser/ws/catkin_workspace/devel/.private/etsi_visualization
+
+Name: etsi_visualization
+Description: Description of etsi_visualization
+Version: 0.1.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: roscpp tf2_ros definitions visualization_msgs

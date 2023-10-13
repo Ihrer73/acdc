@@ -12,7 +12,7 @@ A detailed report regarding this project can be found [here](https://github.com/
 ## Getting started
 
 ### Installation
-0. Follow all steps described under [Installation](https://github.com/ika-rwth-aachen/acdc/wiki#installations) in this repository's Wiki to setup your coding environment.
+0. Follow all steps described under [Installation](https://github.com/Ihrer73/acdc/wiki#installations) in this repository's Wiki to setup your coding environment.
 
 1. Clone this repository with the contained submodules:
     ```bash

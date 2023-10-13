@@ -1,8 +1,13 @@
-# ACDC - Processing of Traffic Light Status Information in MPC-Planner
-Forked from RWTH-ika, modified for better processing of traffic signals. Irrelevant sections are removed. 
+# ACDC Research Project - Processing of Traffic Light Status Information in MPC-Planner
 
 ## Introduction
-Automated driving is a highly frequented research topic with many different domains, one of them being reliable, efficient and safe trajectory planning. This project deals with enhancing a rule-based trajectory planning approach through improved integration of traffic light information. The existing approach for [ACDC course](https://github.com/ika-rwth-aachen/acdc) is a model predictive control (MPC) planner with basic traffic light integration which treats traffic lights as discrete points. In this Project several improvements are proposed: Considering stop lines instead of points, adapting behavior based on the vehicle position relative to stop lines, ensuring early stopping in front of traffic lights that turn red in the near future and optimizing trajectories for fuel efficiency. A detailed report regarding this project can be found [here](https://github.com/ika-rwth-aachen/acdc-research-projects/blob/main/reports/10-Processing-of-Traffic-Light-Status-Information-in-MPC-Planner/2023-09_MA_Leong_Hubbertz/report_topic_10.ipynb).
+Automated driving is a highly frequented research topic with many different domains, one of them being reliable, efficient and safe trajectory planning. This project deals with enhancing a rule-based trajectory planning approach through improved integration of traffic light information. The existing approach for [ACDC course](https://github.com/ika-rwth-aachen/acdc) is a model predictive control (MPC) planner with basic traffic light integration which treats traffic lights as discrete points. 
+
+In this Project several improvements are proposed: 
+1. Considering stop lines instead of points, adapting behavior based on the vehicle position relative to stop lines. 
+2. Ensuring early stopping in front of traffic lights that turn red in the near future and optimizing trajectories for fuel efficiency. 
+
+A detailed report regarding this project can be found [here](https://github.com/ika-rwth-aachen/acdc-research-projects/blob/main/reports/10-Processing-of-Traffic-Light-Status-Information-in-MPC-Planner/2023-09_MA_Leong_Hubbertz/report_topic_10.ipynb).
 
 ## Getting started
 
@@ -44,7 +49,9 @@ Automated driving is a highly frequented research topic with many different doma
    ```bash
    roslaunch trajectory_planner vehicle_guidance_v2x.launch
    ```
-   
+
+**Note:** The MAPEM and SPATEM generator node are both included in the launch files above.
+
 ## License
 
 Copyright (c) 2022, Institute for Automotive Engineering (ika), RWTH University

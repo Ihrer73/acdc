@@ -7,12 +7,12 @@ In this Project several improvements are proposed:
 1. Considering stop lines instead of points, adapting behavior based on the vehicle position relative to stop lines. 
 2. Ensuring early stopping in front of traffic lights that turn red in the near future and optimizing trajectories for fuel efficiency. 
 
-A detailed report regarding this project can be found [here](https://github.com/ika-rwth-aachen/acdc-research-projects/blob/main/reports/10-Processing-of-Traffic-Light-Status-Information-in-MPC-Planner/2023-09_MA_Leong_Hubbertz/report_topic_10.ipynb).
+A detailed report regarding this project can be found [here](https://github.com/Ihrer73/acdc-research-projects/blob/main/reports/10-Processing-of-Traffic-Light-Status-Information-in-MPC-Planner/2023-09_MA_Leong_Hubbertz/report_topic_10.ipynb).
 
 ## Getting started
 
 ### Installation
-0. Follow all steps described under [Installation](https://github.com/Ihrer73/acdc/wiki#installations) in this repository's Wiki to setup your coding environment.
+0. Follow all steps described under [Installation](https://github.com/ika-rwth-aachen/acdc/wiki#installations) in this repository's Wiki to setup your coding environment.
 
 1. Clone this repository with the contained submodules:
     ```bash

@@ -1,13 +1,13 @@
 # ACDC Research Project - Processing of Traffic Light Status Information in MPC-Planner
 
 ## Introduction
-Automated driving is a highly frequented research topic with many different domains, one of them being reliable, efficient and safe trajectory planning. This project deals with enhancing a rule-based trajectory planning approach through improved integration of traffic light information. The existing approach for [ACDC course](https://github.com/ika-rwth-aachen/acdc) is a model predictive control (MPC) planner with basic traffic light integration which treats traffic lights as discrete points. 
+This repository aims to explore various effects of traffic signal processing on autonomous vehicles. It deals with enhancing a rule-based trajectory planning approach through improved integration of traffic light information. The controller functions are built upon existing program by [RWTH Institute for Automotive Engineering](https://github.com/ika-rwth-aachen). Introduction about this project can be found under [ika-rwth-aachen/acdc](https://github.com/ika-rwth-aachen/acdc). It is a model predictive control (MPC) planner with basic traffic light integration which treats traffic lights as discrete points. 
 
-In this Project several improvements are proposed: 
+The core improvements that are proposed in this project are as follow: 
 1. Considering stop lines instead of points, adapting behavior based on the vehicle position relative to stop lines. 
 2. Ensuring early stopping in front of traffic lights that turn red in the near future and optimizing trajectories for fuel efficiency. 
 
-A detailed report regarding this project can be found [here](https://github.com/Ihrer73/acdc-research-projects/blob/main/reports/10-Processing-of-Traffic-Light-Status-Information-in-MPC-Planner/2023-09_MA_Leong_Hubbertz/report_topic_10.ipynb).
+A detailed documentation regarding this project can be found [here](https://github.com/Ihrer73/acdc-research-projects/blob/main/reports/10-Processing-of-Traffic-Light-Status-Information-in-MPC-Planner/2023-09_MA_Leong_Hubbertz/report_topic_10.ipynb).
 
 ## Getting started
 
